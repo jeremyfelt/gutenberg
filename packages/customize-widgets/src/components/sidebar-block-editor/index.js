@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useMemo } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 import {
 	BlockEditorProvider,
 	BlockList,
@@ -9,6 +9,7 @@ import {
 	ObserveTyping,
 	WritingFlow,
 	BlockEditorKeyboardShortcuts,
+	__experimentalBlockSettingsMenuFirstItem,
 } from '@wordpress/block-editor';
 import {
 	DropZoneProvider,
@@ -25,6 +26,7 @@ import { useDialogState } from 'reakit/Dialog';
  * Internal dependencies
  */
 import Header from '../header';
+import Inspector, { BlockInspectorButton } from '../inspector';
 import useSidebarBlockEditor from './use-sidebar-block-editor';
 
 export default function SidebarBlockEditor( { sidebar } ) {
@@ -33,6 +35,7 @@ export default function SidebarBlockEditor( { sidebar } ) {
 		modal: false,
 		animated: 150,
 	} );
+	const [ isInspectorOpened, setIsInspectorOpened ] = useState( false );
 	const settings = useMemo(
 		() => ( {
 			__experimentalSetIsInserterOpened: inserter.setVisible,
@@ -50,6 +53,7 @@ export default function SidebarBlockEditor( { sidebar } ) {
 						onInput={ onInput }
 						onChange={ onChange }
 						settings={ settings }
+						useSubRegistry={ false }
 					>
 						<BlockEditorKeyboardShortcuts />
 
@@ -66,6 +70,21 @@ export default function SidebarBlockEditor( { sidebar } ) {
 
 					<Popover.Slot name="block-toolbar" />
 					<Popover.Slot />
+
+					{ isInspectorOpened && <Inspector /> }
+
+					<__experimentalBlockSettingsMenuFirstItem>
+						{ ( { onClose } ) => (
+							<BlockInspectorButton
+								onToggle={ () => {
+									setIsInspectorOpened(
+										( opened ) => ! opened
+									);
+									onClose();
+								} }
+							/>
+						) }
+					</__experimentalBlockSettingsMenuFirstItem>
 				</DropZoneProvider>
 			</SlotFillProvider>
 		</>
