@@ -8,8 +8,13 @@ import {
 	BlockSelectionClearer,
 	ObserveTyping,
 	WritingFlow,
+	BlockEditorKeyboardShortcuts,
 } from '@wordpress/block-editor';
-import { DropZoneProvider, SlotFillProvider } from '@wordpress/components';
+import {
+	DropZoneProvider,
+	SlotFillProvider,
+	Popover,
+} from '@wordpress/components';
 
 /**
  * External dependencies
@@ -36,25 +41,33 @@ export default function SidebarBlockEditor( { sidebar } ) {
 	);
 
 	return (
-		<SlotFillProvider>
-			<DropZoneProvider>
-				<BlockEditorProvider
-					value={ blocks }
-					onInput={ onInput }
-					onChange={ onChange }
-					settings={ settings }
-				>
-					<Header inserter={ inserter } />
+		<>
+			<BlockEditorKeyboardShortcuts.Register />
+			<SlotFillProvider>
+				<DropZoneProvider>
+					<BlockEditorProvider
+						value={ blocks }
+						onInput={ onInput }
+						onChange={ onChange }
+						settings={ settings }
+					>
+						<BlockEditorKeyboardShortcuts />
 
-					<BlockSelectionClearer>
-						<WritingFlow>
-							<ObserveTyping>
-								<BlockList />
-							</ObserveTyping>
-						</WritingFlow>
-					</BlockSelectionClearer>
-				</BlockEditorProvider>
-			</DropZoneProvider>
-		</SlotFillProvider>
+						<Header inserter={ inserter } />
+
+						<BlockSelectionClearer>
+							<WritingFlow>
+								<ObserveTyping>
+									<BlockList />
+								</ObserveTyping>
+							</WritingFlow>
+						</BlockSelectionClearer>
+					</BlockEditorProvider>
+
+					<Popover.Slot name="block-toolbar" />
+					<Popover.Slot />
+				</DropZoneProvider>
+			</SlotFillProvider>
+		</>
 	);
 }
