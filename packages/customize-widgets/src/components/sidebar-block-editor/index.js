@@ -48,28 +48,30 @@ export default function SidebarBlockEditor( { sidebar } ) {
 			<BlockEditorKeyboardShortcuts.Register />
 			<SlotFillProvider>
 				<DropZoneProvider>
-					<BlockEditorProvider
-						value={ blocks }
-						onInput={ onInput }
-						onChange={ onChange }
-						settings={ settings }
-						useSubRegistry={ false }
-					>
-						<BlockEditorKeyboardShortcuts />
+					<div hidden={ isInspectorOpened }>
+						<BlockEditorProvider
+							value={ blocks }
+							onInput={ onInput }
+							onChange={ onChange }
+							settings={ settings }
+							useSubRegistry={ false }
+						>
+							<BlockEditorKeyboardShortcuts />
 
-						<Header inserter={ inserter } />
+							<Header inserter={ inserter } />
 
-						<BlockSelectionClearer>
-							<WritingFlow>
-								<ObserveTyping>
-									<BlockList />
-								</ObserveTyping>
-							</WritingFlow>
-						</BlockSelectionClearer>
-					</BlockEditorProvider>
+							<BlockSelectionClearer>
+								<WritingFlow>
+									<ObserveTyping>
+										<BlockList />
+									</ObserveTyping>
+								</WritingFlow>
+							</BlockSelectionClearer>
+						</BlockEditorProvider>
 
-					<Popover.Slot name="block-toolbar" />
-					<Popover.Slot />
+						<Popover.Slot name="block-toolbar" />
+						<Popover.Slot />
+					</div>
 
 					{ isInspectorOpened && <Inspector /> }
 
