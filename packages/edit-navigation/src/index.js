@@ -31,6 +31,7 @@ export function initialize( id, settings ) {
 		searchOptions
 	) => fetchLinkSuggestions( searchText, searchOptions, settings );
 
+	console.log({settings});
 	render(
 		<Layout blockEditorSettings={ settings } />,
 		document.getElementById( id )
