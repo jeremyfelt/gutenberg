@@ -53,7 +53,7 @@ describe( 'Menu name editor', () => {
 		// 	() => useNavigationEditorData
 		// );
 		wrapper = shallow( <Layout blockEditorSettings={ {} } /> );
-		wrapper.find('.wp-block-navigation-placeholder').simulate('click')
+		wrapper.find( '.wp-block-navigation-placeholder' ).simulate( 'click' );
 		nameEditor = wrapper.find( NameEditor );
 		input = nameEditor.find( 'input' );
 	} );
