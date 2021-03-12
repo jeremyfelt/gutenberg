@@ -42,6 +42,7 @@ export default function SidebarBlockEditor( { sidebar } ) {
 		} ),
 		[ inserter.setVisible ]
 	);
+	const collapse = () => setIsInspectorOpened( false );
 
 	return (
 		<>
@@ -73,7 +74,10 @@ export default function SidebarBlockEditor( { sidebar } ) {
 						<Popover.Slot />
 					</div>
 
-					{ isInspectorOpened && <Inspector /> }
+					<Inspector
+						isExpanded={ isInspectorOpened }
+						collapse={ collapse }
+					/>
 
 					<__experimentalBlockSettingsMenuFirstItem>
 						{ ( { onClose } ) => (
