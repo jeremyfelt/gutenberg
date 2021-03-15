@@ -815,7 +815,7 @@ class WP_Theme_JSON_Test extends WP_UnitTestCase {
 				'customTemplates' => array(
 					array(
 						'name'  => 'page-home',
-						'title' => 'Some title',
+						'title' => 'Homepage template',
 					),
 				),
 			)
@@ -827,7 +827,7 @@ class WP_Theme_JSON_Test extends WP_UnitTestCase {
 			$page_templates,
 			array(
 				'page-home' => array(
-					'title' => 'Some title',
+					'title' => 'Homepage template',
 				),
 			)
 		);
@@ -838,8 +838,8 @@ class WP_Theme_JSON_Test extends WP_UnitTestCase {
 			array(
 				'templateParts' => array(
 					array(
-						'name' => 'header',
-						'area' => 'Some area',
+						'name' => 'small-header',
+						'area' => 'header',
 					),
 				),
 			)
@@ -850,8 +850,8 @@ class WP_Theme_JSON_Test extends WP_UnitTestCase {
 		$this->assertEqualSetsWithIndex(
 			$template_parts,
 			array(
-				'header' => array(
-					'area' => 'Some area',
+				'small-header' => array(
+					'area' => 'header',
 				),
 			)
 		);
