@@ -36,7 +36,7 @@ export default function ManageLocations( {
 	const themeLocationCountTextMain = sprintf(
 		// translators: Number of available theme locations.
 		__(
-			'Your current theme provides with %d different locations to place menu.'
+			'Your current theme provides %d different locations to place menu.'
 		),
 		menuLocations.length
 	);
@@ -44,7 +44,7 @@ export default function ManageLocations( {
 	const themeLocationCountTextModal = sprintf(
 		// translators: Number of available theme locations.
 		__(
-			'Your current theme provides with %d different locations. Select which menu appears in each location.'
+			'Your current theme supports %d different locations. Select which menu appears in each location.'
 		),
 		menuLocations.length
 	);
@@ -55,22 +55,27 @@ export default function ManageLocations( {
 			.find( ( { id } ) => id === menu );
 
 		return (
-			<CheckboxControl
+			<li
 				key={ name }
-				checked={ menu === selectedMenuId }
-				onChange={ () =>
-					toggleMenuLocationAssignment( name, selectedMenuId )
-				}
-				label={ name }
-				help={
-					menuOnLocation &&
-					sprintf(
-						// translators: menu name.
-						__( 'Currently using %s' ),
-						menuOnLocation.name
-					)
-				}
-			/>
+				className="edit-navigation-manage-locations__checklist-item"
+			>
+				<CheckboxControl
+					className="edit-navigation-manage-locations__menu-location-checkbox"
+					checked={ menu === selectedMenuId }
+					onChange={ () =>
+						toggleMenuLocationAssignment( name, selectedMenuId )
+					}
+					label={ name }
+					help={
+						menuOnLocation &&
+						sprintf(
+							// translators: menu name.
+							__( 'Currently using %s' ),
+							menuOnLocation.name
+						)
+					}
+				/>
+			</li>
 		);
 	} );
 
@@ -111,7 +116,9 @@ export default function ManageLocations( {
 					visibility: !! menuLocation.menu ? 'visible' : 'hidden',
 				} }
 				className="edit-navigation-manage-locations__edit-button"
-				onClick={ () => onSelectMenu( menuLocation.menu ) }
+				onClick={ () => (
+					closeModal(), onSelectMenu( menuLocation.menu )
+				) }
 			>
 				{ __( 'Edit' ) }
 			</Button>
@@ -123,7 +130,9 @@ export default function ManageLocations( {
 			<div className="edit-navigation-manage-locations__theme-location-text-main">
 				{ themeLocationCountTextMain }
 			</div>
-			{ menusWithSelection }
+			<ul className="edit-navigation-manage-locations__checklist">
+				{ menusWithSelection }
+			</ul>
 			<Button
 				isSecondary
 				className="edit-navigation-manage-locations__open-menu-locations-modal-button"
@@ -134,6 +143,7 @@ export default function ManageLocations( {
 			</Button>
 			{ isModalOpen && (
 				<Modal
+					className="edit-navigation-manage-locations__modal"
 					title={ __( 'Manage Locations' ) }
 					onRequestClose={ closeModal }
 				>
