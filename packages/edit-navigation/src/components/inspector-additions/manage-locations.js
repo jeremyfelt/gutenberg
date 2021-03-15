@@ -144,7 +144,7 @@ export default function ManageLocations( {
 			{ isModalOpen && (
 				<Modal
 					className="edit-navigation-manage-locations__modal"
-					title={ __( 'Manage Locations' ) }
+					title={ __( 'Manage locations' ) }
 					onRequestClose={ closeModal }
 				>
 					<div className="edit-navigation-manage-locations__theme-location-text-modal">
