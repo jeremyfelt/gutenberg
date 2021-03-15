@@ -27,6 +27,7 @@ export default function NameDisplay() {
 						__( `Edit menu name: %s` ),
 						menuName
 					) }
+					className="edit-navigation-name-display__menu-name-button"
 					onClick={ () => setIsMenuNameEditFocused( true ) }
 				>
 					{ menuName }

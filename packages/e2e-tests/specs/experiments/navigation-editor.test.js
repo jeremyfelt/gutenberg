@@ -392,4 +392,59 @@ describe( 'Navigation editor', () => {
 			await pressKeyWithModifier( 'primary', 'A' );
 		}
 	} );
+	describe( 'Menu name editor', () => {
+		let menuPostResponse, navigatorNameEditor, input;
+		beforeEach( async () => {
+			menuPostResponse = {
+				id: 4,
+				description: '',
+				name: 'New Menu',
+				slug: 'new-menu',
+				meta: [],
+				auto_add: false,
+			};
+
+			await setUpResponseMocking( [
+				...getMenuMocks( {
+					GET: assignMockMenuIds( menusFixture ),
+					POST: menuPostResponse,
+				} ),
+				...getMenuItemMocks( { GET: menuItemsFixture } ),
+			] );
+			await visitNavigationEditor();
+			const placeholder = await page.waitForSelector(
+				'.wp-block-navigation'
+			);
+			placeholder.click();
+			navigatorNameEditor = await page.waitForSelector(
+				'.block-editor-block-inspector .edit-navigation-name-editor__text-control'
+			);
+			input = navigatorNameEditor.find( 'input' );
+		} );
+		it( 'is displayed in inspector additions', async () => {
+			expect( navigatorNameEditor ).toBeTruthy();
+		} );
+
+		it.only( 'is focused upon clicking on menu name in toolbar', async () => {
+			const menuName = await page.waitForSelector(
+				'.edit-navigation-name-display__menu-name-button'
+			);
+			menuName.simulate( 'click' );
+			expect( input.is( ':focus' ) ).toBe( true );
+		} );
+		it.skip( 'saves menu name upon clicking save button', async () => {
+			input.simulate('focus');
+			input.type('newName');
+			const saveButton = page.find('.edit-navigation-toolbar__save-button');
+			saveButton.simulate('click');
+			const menuName = await page.waitForSelector(
+				'.edit-navigation-name-display__menu-name-button'
+			);
+			expect( menuName ).toBe( 'newName' );
+
+		} );
+		it.skip( 'does not save a menu name upon clicking save button when name is empty', () => {
+
+		} );
+	} );
 } );
