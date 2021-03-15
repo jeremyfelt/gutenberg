@@ -392,7 +392,7 @@ describe( 'Navigation editor', () => {
 			await pressKeyWithModifier( 'primary', 'A' );
 		}
 	} );
-	describe( 'Menu name editor', () => {
+	describe.only( 'Menu name editor', () => {
 		let menuPostResponse, navigatorNameEditor, input;
 		beforeEach( async () => {
 			menuPostResponse = {
@@ -412,10 +412,11 @@ describe( 'Navigation editor', () => {
 				...getMenuItemMocks( { GET: menuItemsFixture } ),
 			] );
 			await visitNavigationEditor();
-			const placeholder = await page.waitForSelector(
-				'.wp-block-navigation'
-			);
-			placeholder.click();
+			// click in the top left corner of the canvas.
+			const navigationBlock = await page.$( '.wp-block-navigation' );
+			const boundingBox = await navigationBlock.boundingBox();
+			await page.mouse.click( boundingBox.x + 5, boundingBox.y + 5 );
+
 			navigatorNameEditor = await page.waitForSelector(
 				'.block-editor-block-inspector .edit-navigation-name-editor__text-control'
 			);
@@ -425,26 +426,41 @@ describe( 'Navigation editor', () => {
 			expect( navigatorNameEditor ).toBeTruthy();
 		} );
 
-		it.only( 'is focused upon clicking on menu name in toolbar', async () => {
-			const menuName = await page.waitForSelector(
-				'.edit-navigation-name-display__menu-name-button'
+		it( 'is focused upon clicking on menu name in toolbar', async () => {
+			const menuName = [
+				...( await page.$$( '.components-toolbar-group button' ) ),
+			].find( ( button ) =>
+				button
+					.getAttribute( 'aria-label' )
+					.startsWith( 'Edit menu name:' )
 			);
 			menuName.simulate( 'click' );
 			expect( input.is( ':focus' ) ).toBe( true );
 		} );
-		it.skip( 'saves menu name upon clicking save button', async () => {
-			input.simulate('focus');
-			input.type('newName');
-			const saveButton = page.find('.edit-navigation-toolbar__save-button');
-			saveButton.simulate('click');
+		it( 'saves menu name upon clicking save button', async () => {
+			input.simulate( 'focus' );
+			input.type( 'newName' );
+			const saveButton = page.find(
+				'.edit-navigation-toolbar__save-button'
+			);
+			saveButton.simulate( 'click' );
 			const menuName = await page.waitForSelector(
 				'.edit-navigation-name-display__menu-name-button'
 			);
 			expect( menuName ).toBe( 'newName' );
-
 		} );
-		it.skip( 'does not save a menu name upon clicking save button when name is empty', () => {
-
+		it( 'does not save a menu name upon clicking save button when name is empty', async () => {
+			const oldName = input.value;
+			input.type( '' );
+			input.simulate( 'focus' );
+			const saveButton = page.find(
+				'.edit-navigation-toolbar__save-button'
+			);
+			saveButton.simulate( 'click' );
+			const menuName = await page.waitForSelector(
+				'.edit-navigation-name-display__menu-name-button'
+			);
+			expect( menuName ).toBe( oldName );
 		} );
 	} );
 } );
