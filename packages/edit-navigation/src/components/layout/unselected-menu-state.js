@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import AddMenu from '../add-menu';
-import MenuSelector from '../menu-selector';
+import MenuSwitcher from '../menu-switcher';
 
 export default function UnselectedMenuState( {
 	onCreate,
@@ -19,7 +19,7 @@ export default function UnselectedMenuState( {
 		<Card className="edit-navigation-empty-state">
 			<CardBody>
 				{ menus?.length ? (
-					<MenuSelector
+					<MenuSwitcher
 						onSelectMenu={ onSelectMenu }
 						menus={ menus }
 					/>
