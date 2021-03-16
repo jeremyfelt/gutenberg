@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { noop } from 'lodash';
+import { isArray, noop } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -14,6 +14,7 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import BlockNavigationTree from './tree';
+import { isClientIdSelected } from './utils';
 import { store as blockEditorStore } from '../../store';
 
 function BlockNavigation( {
@@ -29,7 +30,7 @@ function BlockNavigation( {
 
 	const hasHierarchy =
 		rootBlock &&
-		( rootBlock.clientId !== selectedBlockClientId ||
+		( isClientIdSelected( rootBlock.clientId, selectedBlockClientId ) ||
 			( rootBlock.innerBlocks && rootBlock.innerBlocks.length !== 0 ) );
 
 	return (
@@ -60,11 +61,14 @@ export default compose(
 		const selectedBlockClientId = getSelectedBlockClientId();
 		return {
 			rootBlocks: __unstableGetBlockTree(),
-			rootBlock: selectedBlockClientId
-				? __unstableGetBlockWithBlockTree(
-						getBlockHierarchyRootClientId( selectedBlockClientId )
-				  )
-				: null,
+			rootBlock:
+				selectedBlockClientId && ! isArray( selectedBlockClientId )
+					? __unstableGetBlockWithBlockTree(
+							getBlockHierarchyRootClientId(
+								selectedBlockClientId
+							)
+					  )
+					: null,
 			selectedBlockClientId,
 		};
 	} ),
