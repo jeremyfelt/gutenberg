@@ -17,8 +17,6 @@ import { BACKSPACE, DELETE, F10, isKeyboardEvent } from '@wordpress/keycodes';
  */
 import ConvertToBlocksButton from './convert-to-blocks-button';
 
-const { wp } = window;
-
 function isTmceEmpty( editor ) {
 	// When tinyMce is empty the content seems to be:
 	// <p><br data-mce-bogus="1"></p>

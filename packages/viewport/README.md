@@ -84,15 +84,7 @@ _Returns_
 
 <a name="store" href="#store">#</a> **store**
 
-Store definition for the viewport namespace.
-
-_Related_
-
--   <https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore>
-
-_Type_
-
--   `Object`
+Internal dependencies
 
 <a name="withViewportMatch" href="#withViewportMatch">#</a> **withViewportMatch**
 

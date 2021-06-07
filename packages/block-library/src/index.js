@@ -143,7 +143,9 @@ export const __experimentalGetCoreBlocks = () => [
 	embed,
 	file,
 	group,
-	window.wp && window.wp.oldEditor ? classic : null, // Only add the classic block in WP Context
+	'undefined' !== typeof window && window.wp && window.wp.oldEditor
+		? classic
+		: null, // Only add the classic block in WP Context
 	html,
 	mediaText,
 	latestComments,
@@ -210,7 +212,7 @@ export const registerCoreBlocks = (
 	blocks.forEach( registerBlock );
 
 	setDefaultBlockName( paragraph.name );
-	if ( window.wp && window.wp.oldEditor ) {
+	if ( 'undefined' !== typeof window && window.wp && window.wp.oldEditor ) {
 		setFreeformContentHandlerName( classic.name );
 	}
 	setUnregisteredTypeHandlerName( missing.name );

@@ -8,8 +8,6 @@ import { noop } from 'lodash';
  */
 import { useState, useRef, useEffect } from '@wordpress/element';
 
-const { clearTimeout, setTimeout } = window;
-
 const DEBOUNCE_TIMEOUT = 200;
 
 /**

@@ -1,7 +1,7 @@
 /**
  * Browser dependencies
  */
-const { createObjectURL, revokeObjectURL } = window.URL;
+const { createObjectURL, revokeObjectURL } = URL;
 
 /**
  * @type {Record<string, File|undefined>}

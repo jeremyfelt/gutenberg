@@ -11,7 +11,6 @@ import { UP, DOWN, LEFT, RIGHT } from '@wordpress/keycodes';
  */
 import { store as blockEditorStore } from '../../store';
 
-const isIE = window.navigator.userAgent.indexOf( 'Trident' ) !== -1;
 const arrowKeyCodes = new Set( [ UP, DOWN, LEFT, RIGHT ] );
 const initialTriggerPercentage = 0.75;
 
@@ -272,7 +271,7 @@ function Typewriter( { children } ) {
  *
  * @type {WPComponent}
  */
-const TypewriterOrIEBypass = isIE ? ( props ) => props.children : Typewriter;
+const TypewriterOrIEBypass = Typewriter;
 
 /**
  * Ensures that the text selection keeps the same vertical distance from the

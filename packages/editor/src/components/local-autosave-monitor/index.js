@@ -20,9 +20,15 @@ import AutosaveMonitor from '../autosave-monitor';
 import { localAutosaveGet, localAutosaveClear } from '../../store/controls';
 import { store as editorStore } from '../../store';
 
-const requestIdleCallback = window.requestIdleCallback
-	? window.requestIdleCallback
-	: window.requestAnimationFrame;
+let requestIdleCallback;
+
+if ( 'undefined' === typeof window ) {
+	requestIdleCallback = false;
+} else {
+	requestIdleCallback = window.requestIdleCallback
+		? window.requestIdleCallback
+		: window.requestAnimationFrame;
+}
 
 /**
  * Function which returns true if the current environment supports browser

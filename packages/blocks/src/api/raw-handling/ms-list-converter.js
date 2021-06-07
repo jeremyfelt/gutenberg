@@ -1,7 +1,6 @@
 /**
  * Browser dependencies
  */
-const { parseInt } = window;
 
 function isList( node ) {
 	return node.nodeName === 'OL' || node.nodeName === 'UL';

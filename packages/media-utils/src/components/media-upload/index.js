@@ -9,8 +9,6 @@ import { castArray, defaults, pick } from 'lodash';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const { wp } = window;
-
 const DEFAULT_EMPTY_GALLERY = [];
 
 /**

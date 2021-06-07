@@ -1,8 +1,6 @@
 /**
  * Internal dependencies
  */
-import addDimensionsEventListener from './listener';
-
 export { store } from './store';
 export { default as ifViewportMatches } from './if-viewport-matches';
 export { default as withViewportMatch } from './with-viewport-match';
@@ -32,5 +30,3 @@ const OPERATORS = {
 	'<': 'max-width',
 	'>=': 'min-width',
 };
-
-addDimensionsEventListener( BREAKPOINTS, OPERATORS );

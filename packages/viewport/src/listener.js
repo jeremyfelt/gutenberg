@@ -39,9 +39,10 @@ const addDimensionsEventListener = ( breakpoints, operators ) => {
 		breakpoints,
 		( result, width, name ) => {
 			forEach( operators, ( condition, operator ) => {
-				const list = window.matchMedia(
-					`(${ condition }: ${ width }px)`
-				);
+				const list =
+					typeof window !== 'undefined'
+						? window.matchMedia( `(${ condition }: ${ width }px)` )
+						: '';
 				list.addListener( setIsMatching );
 
 				const key = [ operator, name ].join( ' ' );
@@ -53,7 +54,9 @@ const addDimensionsEventListener = ( breakpoints, operators ) => {
 		{}
 	);
 
-	window.addEventListener( 'orientationchange', setIsMatching );
+	if ( typeof window !== 'undefined' ) {
+		window.addEventListener( 'orientationchange', setIsMatching );
+	}
 
 	// Set initial values
 	setIsMatching();

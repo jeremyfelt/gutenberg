@@ -650,20 +650,7 @@ _Returns_
 
 <a name="pasteHandler" href="#pasteHandler">#</a> **pasteHandler**
 
-Converts an HTML string to known blocks. Strips everything else.
-
-_Parameters_
-
--   _options_ `Object`: 
--   _options.HTML_ `[string]`: The HTML to convert.
--   _options.plainText_ `[string]`: Plain text version.
--   _options.mode_ `[string]`: Handle content as blocks or inline content. _ 'AUTO': Decide based on the content passed. _ 'INLINE': Always handle as inline content, and return string. \* 'BLOCKS': Always handle as blocks, and return array of blocks.
--   _options.tagName_ `[Array]`: The tag into which content will be inserted.
--   _options.preserveWhiteSpace_ `[boolean]`: Whether or not to preserve consequent white space.
-
-_Returns_
-
--   `Array|string`: A list of blocks or a string, depending on `handlerMode`.
+Undocumented declaration.
 
 <a name="rawHandler" href="#rawHandler">#</a> **rawHandler**
 

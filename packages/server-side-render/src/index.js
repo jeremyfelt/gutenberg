@@ -44,7 +44,12 @@ const ExportedServerSideRender = withSelect( ( select ) => {
 	return <ServerSideRender urlQueryArgs={ newUrlQueryArgs } { ...props } />;
 } );
 
-if ( window && window.wp && window.wp.components ) {
+if (
+	'undefined' !== typeof window &&
+	window &&
+	window.wp &&
+	window.wp.components
+) {
 	window.wp.components.ServerSideRender = forwardRef( ( props, ref ) => {
 		deprecated( 'wp.components.ServerSideRender', {
 			since: '5.3',
